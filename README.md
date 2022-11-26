@@ -25,6 +25,6 @@ To get started with the tutorial, follow the following steps:
     ```
 4. Install instio in ambient mode on your local cluster
     ```bash
-    ./istioctl install --set profile=ambient -y
+    ./istio/bin/istioctl install --set profile=ambient -y
     ```
    
