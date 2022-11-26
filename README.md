@@ -11,7 +11,7 @@ To get started with the tutorial, follow the following steps:
 
 1. Download the experimental version of istioctl 
     ```bash
-    curl https://storage.googleapis.com/istio-build/dev/0.0.0-ambient.191fe680b52c1754ee72a06b3e0d3f9d116f2e82/istio-0.0.0-ambient.191fe680b52c1754ee72a06b3e0d3f9d116f2e82-osx-arm64.tar.gz --output istio.tar.gz
+    curl https://storage.googleapis.com/istio-build/dev/0.0.0-ambient.191fe680b52c1754ee72a06b3e0d3f9d116f2e82/istio-0.0.0-ambient.191fe680b52c1754ee72a06b3e0d3f9d116f2e82-linux-amd64.tar.gz --output istio.tar.gz
     ```
 2. untar the file
     ```bash
