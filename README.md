@@ -2,7 +2,9 @@
 
 > Note: This tutorial is based on kind running on an ubuntu 20.04 machine with docker. 
 > It should work on any other linux distribution. We also tried to run it on a 
-> macbook pro with docker desktop, this did not work yet.
+> macbook pro with docker desktop, this did not work yet. To see the current status 
+> of all supported environments please look (here)[https://github.com/istio/istio/tree/experimental-ambient#supported-environments].
+
 
 ## Getting started
 To get started with the tutorial, follow the following steps:
