@@ -41,7 +41,7 @@ To get started with the tutorial, follow the following steps:
     ```bash
     kubectl -n istio-system get all
     ```
-    You should see the following output:
+    You should see output along the line of:
     ```bash
     NAME                                       READY   STATUS    RESTARTS   AGE
     pod/istio-cni-node-5vkb6                   1/1     Running   0          12m
