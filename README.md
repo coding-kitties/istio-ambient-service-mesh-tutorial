@@ -57,6 +57,13 @@ To get started with the tutorial, follow the following steps:
     kubectl -n istio-system get all
     ```
     You should see output along the line of:
+    > Note: you can see the 3 "ambient" proxies running 
+    > ```bash
+    > pod/istio-cni-node-5vkb6                   1/1     Running   0          12m
+    > pod/istio-cni-node-tc8fn                   1/1     Running   0          12m
+    > pod/istio-cni-node-zm8dl                   1/1     Running   0          12m
+    > ```
+    > One for each node in the cluster. Whereas with sidecars, there was a proxy per pod.
     ```bash
     NAME                                       READY   STATUS    RESTARTS   AGE
     pod/istio-cni-node-5vkb6                   1/1     Running   0          12m
