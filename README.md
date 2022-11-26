@@ -29,4 +29,19 @@ To get started with the tutorial, follow the following steps:
     ```bash
     ./istio/bin/istioctl install --set profile=ambient -y
     ```
-   
+    You should see the following output:
+    ```bash
+    ✔ Istio core installed
+    ✔ Istiod installed
+    ✔ Ingress gateways installed
+    ✔ CNI installed
+    ✔ Installation complete
+    ```
+5. You can also see all the istio resources with the following command:
+    ```bash
+    kubectl -n istio-system get all
+    ```
+    You should see the following output:
+    ```bash
+    
+    ```
