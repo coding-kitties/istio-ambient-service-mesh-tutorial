@@ -5,6 +5,21 @@
 > macbook pro with docker desktop, this did not work yet. To see the current status 
 > of all supported environments please look [here](https://github.com/istio/istio/tree/experimental-ambient#supported-environments).
 
+## Requirements
+* kubectl
+* kind: with a local cluster running with configuration similiar to:
+   ```bash
+   kind create cluster --config=- <<EOF
+   kind: Cluster
+   apiVersion: kind.x-k8s.io/v1alpha4
+   name: ambient
+   nodes:
+   - role: control-plane
+   - role: worker
+   - role: worker
+   EOF
+   ```
+* docker
 
 ## Getting started
 To get started with the tutorial, follow the following steps:
@@ -76,3 +91,29 @@ To get started with the tutorial, follow the following steps:
 
 ### Deploying the demo apps
 
+1. Apply all the deployments found in the istio samples folder
+   ```bash
+   kubectl apply -f ./istio/samples/bookinfo/platform/kube/bookinfo.yaml
+   kubectl apply -f ./istio/samples/bookinfo/networking/bookinfo-gateway.yaml
+   kubectl apply -f https://zhaohuabing.com/download/ambient/sleep.yaml
+   kubectl apply -f https://zhaohuabing.com/download/ambient/notsleep.yaml
+   ```
+
+2. Put all the apps in ambient mode
+   ```bash
+   kubectl label namespace default istio.io/dataplane-mode=ambient
+   ```
+   
+3. If deployments are correct you should be able to see one of the node "ambient" proxies logs:
+   ```bash
+   kubectl logs <istio-cni-node-id> -n istio-system|grep route
+   ```
+   You should see output along the line of:
+   ```bash
+   2022-11-26T19:44:13.500330Z     info    ambient Adding route for productpage-v1-7c548b785b-thqvj/default: [table 100 10.244.2.9/32 via 192.168.126.2 dev istioin src 10.244.2.1]
+   2022-11-26T19:44:13.507981Z     info    ambient Adding route for details-v1-76778d6644-fnqpt/default: [table 100 10.244.2.4/32 via 192.168.126.2 dev istioin src 10.244.2.1]
+   2022-11-26T19:44:13.513244Z     info    ambient Adding route for ratings-v1-85c74b6cb4-njpsd/default: [table 100 10.244.2.5/32 via 192.168.126.2 dev istioin src 10.244.2.1]
+   2022-11-26T19:44:13.519424Z     info    ambient Adding route for reviews-v1-6494d87c7b-vl9qf/default: [table 100 10.244.2.6/32 via 192.168.126.2 dev istioin src 10.244.2.1]
+   2022-11-26T19:44:13.525845Z     info    ambient Adding route for reviews-v2-79857b95b-nkqcz/default: [table 100 10.244.2.7/32 via 192.168.126.2 dev istioin src 10.244.2.1]
+   2022-11-26T19:44:13.531266Z     info    ambient Adding route for reviews-v3-75f494fccb-27bj5/default: [table 100 10.244.2.8/32 via 192.168.126.2 dev istioin src 10.244.2.1]
+   ```
