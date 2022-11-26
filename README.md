@@ -73,3 +73,6 @@ To get started with the tutorial, follow the following steps:
     horizontalpodautoscaler.autoscaling/istio-ingressgateway   Deployment/istio-ingressgateway   <unknown>/80%   1         5         1          12m
     horizontalpodautoscaler.autoscaling/istiod                 Deployment/istiod                 <unknown>/80%   1         5         1          14m
     ```
+
+### Deploying the demo apps
+
