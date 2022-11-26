@@ -124,3 +124,11 @@ To get started with the tutorial, follow the following steps:
    2022-11-26T19:44:13.525845Z     info    ambient Adding route for reviews-v2-79857b95b-nkqcz/default: [table 100 10.244.2.7/32 via 192.168.126.2 dev istioin src 10.244.2.1]
    2022-11-26T19:44:13.531266Z     info    ambient Adding route for reviews-v3-75f494fccb-27bj5/default: [table 100 10.244.2.8/32 via 192.168.126.2 dev istioin src 10.244.2.1]
    ```
+   
+### L4 processing in ambient mode
+4. Check the ztunnel logs
+   ```bash
+   [2022-11-26T19:58:36.758Z] "- - -" 0 - - - "-" 84 1839 170 - "-" "-" "-" "-" "envoy://outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep/10.244.2.9:9080" spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal envoy://internal_client_address/ 10.96.26.28:9080 10.244.1.4:49548 - - capture outbound (no waypoint proxy)
+   ```
+   
+### L7 processing in ambient mode
