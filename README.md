@@ -89,15 +89,14 @@ To get started with the tutorial, follow the following steps:
     horizontalpodautoscaler.autoscaling/istio-ingressgateway   Deployment/istio-ingressgateway   <unknown>/80%   1         5         1          12m
     horizontalpodautoscaler.autoscaling/istiod                 Deployment/istiod                 <unknown>/80%   1         5         1          14m
     ```
-    In the output you can see the 3 "ambient" proxies running.
+    In the output you can see the 3 "ambient" proxies running, one for each node in the cluster. 
     ```bash
     pod/istio-cni-node-5vkb6                   1/1     Running   0          12m
     pod/istio-cni-node-tc8fn                   1/1     Running   0          12m
     pod/istio-cni-node-zm8dl                   1/1     Running   0          12m
     ```
-    One for each node in the cluster. If you compare this to a service mesh that
-    is not running in ambient mode, you will see that there are no proxy 
-    nodes running. Then only a proxy is installed when a pod is deployed. In 
+    If you compare this to a service mesh that is not running in ambient mode, 
+    you will see that there are no proxy nodes running. Then only a proxy is installed when a pod is deployed. In 
     such a setup only the following resources are created:
     ```bash
     pod/istio-egressgateway-5bdd756dfd-2f9cq    1/1     Running   0          82s
