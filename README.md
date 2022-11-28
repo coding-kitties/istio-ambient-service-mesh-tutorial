@@ -133,9 +133,63 @@ To get started with the tutorial, follow the following steps:
    ```
    
 ### L4 processing in ambient mode
-4. Check the ztunnel logs
+Istio service mesh ambient supports L4 processing by default. This means
+that traffic only goes through the ztunnel and not a waypoint proxy, as shown in the figure below.
+![L4 processing](./images/ztunnel4.png)
+We can verify this by using our sleep application to communicate to other 
+services within our cluster.
+
+1. Call the product page service from within our sleep application.
+   ```bash
+   kubectl exec deploy/sleep -- curl -s http://productpage:9080/
+   ```
+   > We use curl to call the productpage service and to retrieve the index 
+   > page.
+
+2. Check the logs of the proxy that is in the same node as the product page service.
+   ```bash
+   kubectl  -n istio-system logs <ztunnel_id> -cistio-proxy --tail 1
+   ```
+   You should see output similar to:
    ```bash
    [2022-11-26T19:58:36.758Z] "- - -" 0 - - - "-" 84 1839 170 - "-" "-" "-" "-" "envoy://outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep/10.244.2.9:9080" spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal envoy://internal_client_address/ 10.96.26.28:9080 10.244.1.4:49548 - - capture outbound (no waypoint proxy)
    ```
+
+3. Check the logs of the proxy that is in the same node as the sleep application.
+
+Check the ztunnel logs
+   ```bash
+   ```
    
 ### L7 processing in ambient mode
+To enable l7 processing, you must deploy a gateway. You can install the gateway 
+with the following commands to enable L7 processing for the 
+productpage service.
+
+1. Deploy a gateway with the following definition:   
+   > Note that the gatewayClassName in the gateway resource must be set 
+   > to ‘istio-mesh’, otherwise Istio won’t create the corresponding 
+   > waypoint proxy for the productpage.
+   ```bash
+   kubectl apply -f - <<EOF
+   apiVersion: gateway.networking.k8s.io/v1alpha2
+   kind: Gateway
+   metadata:
+    name: productpage
+    annotations:
+      istio.io/service-account: bookinfo-productpage
+   spec:
+    gatewayClassName: istio-mesh
+   EOF
+   ```
+2. You can check if the deployment of the productpage waypoint was successfull 
+   by running the following command:
+   ```bash
+   kubectl get pod | grep waypoint
+   ```
+   Your output should be similiar to:
+   ```bash
+   bookinfo-productpage-waypoint-proxy-fcf74c55d-j9zm5   1/1     Running   0          27s
+   ```
+
+
