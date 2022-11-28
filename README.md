@@ -162,7 +162,11 @@ Check the ztunnel logs
    ```
    
 ### L7 processing in ambient mode
-To enable l7 processing, you must deploy a gateway. You can install the gateway 
+To enable l7 processing, you must deploy a gateway. A gateway will make
+sure that the communication between the two services is secure.
+This setup can be seen in the picture below.
+![L7 processing](./images/ztunnel7.png)
+You can install the gateway 
 with the following commands to enable L7 processing for the 
 productpage service.
 
@@ -191,5 +195,22 @@ productpage service.
    ```bash
    bookinfo-productpage-waypoint-proxy-fcf74c55d-j9zm5   1/1     Running   0          27s
    ```
+### Using service mesh addons
+
+#### Kiali dashboard
+> Note: ambient mode can cause issues with kiali
+
+To deploy kiali dashboard on ambient mode, you can go to you istio installation
+en install the plugim. You can do this by running the following commands.
+
+1. Install the plugin
+   ```bash
+   bookinfo-productpage-waypoint-proxy-fcf74c55d-j9zm5   1/1     Running   0          27s
+   ```
+2. Access the dashboard page
+
+3. Call the productpage service with your sleep service
+
+4. See the updates on the graph
 
 
