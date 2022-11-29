@@ -166,9 +166,8 @@ To enable l7 processing, you must deploy a gateway. A gateway will make
 sure that the communication between the two services is secure.
 This setup can be seen in the picture below.
 ![L7 processing](./images/ztunnel7.png)
-You can install the gateway 
-with the following commands to enable L7 processing for the 
-productpage service.
+
+You can install the gateway with the following commands:
 
 1. Deploy a gateway with the following definition:   
    > Note that the gatewayClassName in the gateway resource must be set 
@@ -195,22 +194,60 @@ productpage service.
    ```bash
    bookinfo-productpage-waypoint-proxy-fcf74c55d-j9zm5   1/1     Running   0          27s
    ```
-### Using service mesh addons
+   
+3. Call the product page service from within our sleep application with curl.
+   ```bash
+   kubectl exec deploy/sleep -- curl -s http://productpage:9080/
+   ```
+   > We use curl to call the productpage service and to retrieve the index 
+   > page.
 
-#### Kiali dashboard
+4. Check the logs of the ztunnels that are in the same node as the product page and sleep service.
+   > Note: this requires some trial and error, because we don't know which 
+   > ztunnel belongs to a specific node.
+   ```bash
+   kubectl  -n istio-system logs <ztunnel_id> -cistio-proxy --tail 1
+   ```
+   You should see in the ztunnel dedicated to the productpage service output similiar:
+   ```bash
+   [2022-11-29T20:18:40.054Z] "- - HTTP/2" 0 - - - "-" 865 1977 90640 - "-" "-" "-" "-" "-" - - 10.244.2.4:15008 10.244.1.11:37182 - - capture inbound listener
+   ```
+   You should see in the ztunnel dedicated to the sleep service output similiar to:
+   ```bash
+   [2022-11-29T20:18:40.046Z] "- - -" 0 - - - "-" 84 1894 43 - "-" "-" "-" "-" "10.244.1.11:15006" spiffe://cluster.local/ns/default/sa/sleep_to_server_waypoint_proxy_spiffe://cluster.local/ns/default/sa/bookinfo-productpage 10.244.1.4:36849 10.96.33.162:9080 10.244.1.4:51652 - - capture outbound (to server waypoint proxy)
+   ```
+   If you look at the ztunnel dedicated to the sleep service, you can read that the 
+   request will first go to a server waypoint proxy just as shown in the picture above.
+
+### Installing a service mesh addon
+
+#### Kiali dashboard 
 > Note: ambient mode can cause issues with kiali
 
 To deploy kiali dashboard on ambient mode, you can go to you istio installation
 en install the plugim. You can do this by running the following commands.
 
-1. Install the plugin
+1. Install the kiali dashboard by running the following command:
    ```bash
-   bookinfo-productpage-waypoint-proxy-fcf74c55d-j9zm5   1/1     Running   0          27s
+   kubectl apply -f samples/addons
+   kubectl rollout status deployment/kiali -n istio-system
    ```
-2. Access the dashboard page
+2. Access the dashboard kiali dashboard in your browser by running the following command:
+   ```bash
+   istioctl dashboard kiali
+   ```
+   > It could be that the graph does not show anything. This means that your cluster 
+   > did not handle any request in the past minute. Follow the next step to make
+   > the traffic flow visible.
+   In your graph view you can see an overview of all your services on the cluster and how 
+   traffic flows between services.
 
 3. Call the productpage service with your sleep service
+   ```bash
+   kubectl exec deploy/sleep -- curl -s http://productpage:9080/
+   ```
+   
+4. Go back to your graph dashboard and see the traffic flow similiar to the picture below:
 
-4. See the updates on the graph
 
 
