@@ -139,28 +139,28 @@ that traffic only goes through the ztunnel and not a waypoint proxy, as shown in
 We can verify this by using our sleep application to communicate to other 
 services within our cluster.
 
-1. Call the product page service from within our sleep application.
+1. Call the product page service from within our sleep application with curl.
    ```bash
    kubectl exec deploy/sleep -- curl -s http://productpage:9080/
    ```
    > We use curl to call the productpage service and to retrieve the index 
    > page.
 
-2. Check the logs of the proxy that is in the same node as the product page service.
+2. Check the logs of the ztunnels that are in the same node as the product page and sleep service.
+   > Note: this requires some trial and error, because we don't know which 
+   > ztunnel belongs to a specific node.
    ```bash
    kubectl  -n istio-system logs <ztunnel_id> -cistio-proxy --tail 1
    ```
-   You should see output similar to:
+   You should see in the ztunnel dedicated to the productpage service output similiar:
    ```bash
-   [2022-11-26T19:58:36.758Z] "- - -" 0 - - - "-" 84 1839 170 - "-" "-" "-" "-" "envoy://outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep/10.244.2.9:9080" spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal envoy://internal_client_address/ 10.96.26.28:9080 10.244.1.4:49548 - - capture outbound (no waypoint proxy)
+   [2022-11-29T19:43:56.477Z] "- - HTTP/2" 0 - - - "-" 241 1968 91918 - "-" "-" "-" "-" "-" - - 10.244.2.4:15008 10.244.1.2:39660 - - capture inbound listener
+   ```
+   You should see in the ztunnel dedicated to the sleep service output similiar to:
+   ```bash
+   [2022-11-29T19:43:56.476Z] "- - -" 0 - - - "-" 84 1839 32 - "-" "-" "-" "-" "envoy://outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep/10.244.2.4:9080" spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal envoy://internal_client_address/ 10.96.33.162:9080 10.244.1.4:51650 - - capture outbound (no waypoint proxy)
    ```
 
-3. Check the logs of the proxy that is in the same node as the sleep application.
-
-Check the ztunnel logs
-   ```bash
-   ```
-   
 ### L7 processing in ambient mode
 To enable l7 processing, you must deploy a gateway. A gateway will make
 sure that the communication between the two services is secure.
