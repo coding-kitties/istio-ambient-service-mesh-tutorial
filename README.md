@@ -236,7 +236,7 @@ en install the plugim. You can do this by running the following commands.
    ```
 2. Access the dashboard kiali dashboard in your browser by running the following command:
    ```bash
-   istioctl dashboard kiali
+   ./istio/bin/istioctl dashboard kiali
    ```
    > It could be that the graph does not show anything. This means that your cluster 
    > did not handle any request in the past minute. Follow the next step to make
