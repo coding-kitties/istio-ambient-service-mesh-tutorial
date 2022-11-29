@@ -109,8 +109,8 @@ To get started with the tutorial, follow the following steps:
    ```bash
    kubectl apply -f ./istio/samples/bookinfo/platform/kube/bookinfo.yaml
    kubectl apply -f ./istio/samples/bookinfo/networking/bookinfo-gateway.yaml
-   kubectl apply -f https://zhaohuabing.com/download/ambient/sleep.yaml
-   kubectl apply -f https://zhaohuabing.com/download/ambient/notsleep.yaml
+   kubectl apply -f https://raw.githubusercontent.com/linsun/sample-apps/main/sleep/sleep.yaml
+   kubectl apply -f https://raw.githubusercontent.com/linsun/sample-apps/main/sleep/notsleep.yaml
    ```
 
 2. Put all the apps in ambient mode
