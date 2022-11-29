@@ -231,7 +231,7 @@ en install the plugim. You can do this by running the following commands.
 
 1. Install the kiali dashboard by running the following command:
    ```bash
-   kubectl apply -f /istio/samples/addons
+   kubectl apply -f ./istio/samples/addons
    kubectl rollout status deployment/kiali -n istio-system
    ```
 2. Access the dashboard kiali dashboard in your browser by running the following command:
