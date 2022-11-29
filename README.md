@@ -106,6 +106,8 @@ To get started with the tutorial, follow the following steps:
 ### Deploying the demo apps
 
 1. Apply all the deployments found in the istio samples folder
+   > You need to wait until all pods are running, otherwise we can't label the 
+   > pods in step 2.  
    ```bash
    kubectl apply -f ./istio/samples/bookinfo/platform/kube/bookinfo.yaml
    kubectl apply -f ./istio/samples/bookinfo/networking/bookinfo-gateway.yaml
@@ -229,7 +231,7 @@ en install the plugim. You can do this by running the following commands.
 
 1. Install the kiali dashboard by running the following command:
    ```bash
-   kubectl apply -f samples/addons
+   kubectl apply -f /istio/samples/addons
    kubectl rollout status deployment/kiali -n istio-system
    ```
 2. Access the dashboard kiali dashboard in your browser by running the following command:
