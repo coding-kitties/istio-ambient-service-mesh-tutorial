@@ -332,7 +332,7 @@ en install the plugim. You can do this by running the following commands.
    kubectl exec deploy/sleep -- curl -s http://productpage:9080/
    ```
    
-4. Go back to your graph dashboard and see the traffic flow similiar to the picture below:
+4. Go back to your graph dashboard and see the traffic flow.
 
 
 
