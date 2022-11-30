@@ -1,14 +1,14 @@
 # Kubernetes ambient service mesh with Istio tutorial
+> Note: This tutorial is based on kind running on an ubuntu 20.04 machine with docker. 
+> It should work on any other linux distribution. We also tried to run it on a 
+> macbook pro with docker desktop, this did not work yet. To see the current status 
+> of all supported environments please look [here](https://github.com/istio/istio/tree/experimental-ambient#supported-environments).
+
 This is a tutorial for the istio service mesh in ambient mode. In this 
 tutorial we want to show two use cases with the use of istio ambient:
 
 * ### L4 and L7 network processing layer with istio ambient
 * ### Deploying kiali dashboard addon on istio ambient
-
-> Note: This tutorial is based on kind running on an ubuntu 20.04 machine with docker. 
-> It should work on any other linux distribution. We also tried to run it on a 
-> macbook pro with docker desktop, this did not work yet. To see the current status 
-> of all supported environments please look [here](https://github.com/istio/istio/tree/experimental-ambient#supported-environments).
 
 ## Requirements
 * kubectl
