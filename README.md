@@ -113,8 +113,8 @@ To get started with the tutorial, follow the following steps:
    > You need to wait until all pods are running, otherwise we can't label the 
    > pods in step 2.  
    ```bash
-   kubectl apply -f ./istio/samples/bookinfo/platform/kube/bookinfo.yaml
-   kubectl apply -f ./istio/samples/bookinfo/networking/bookinfo-gateway.yaml
+   kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/bookinfo/platform/kube/bookinfo.yaml
+   kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/bookinfo/networking/bookinfo-gateway.yaml
    kubectl apply -f https://raw.githubusercontent.com/linsun/sample-apps/main/sleep/sleep.yaml
    kubectl apply -f https://raw.githubusercontent.com/linsun/sample-apps/main/sleep/notsleep.yaml
    ```
