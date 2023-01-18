@@ -140,11 +140,11 @@ To get started with the tutorial, follow the following steps:
 When enabling ambient mode you’ll immediately gain mTLS communication 
 among the applications in the Ambient mesh.
 
-To verify this you could load one of the X.509 certificates for each identity, 
-by using the following command:
+To verify this you could load one of the X.509 certificates for by using one 
+of your ztunnels and retrieving the certificate from it.
 
 ```bash
-./istio/bin/istioctl pc secret ztunnel-249sj -n istio-system -o json | jq -r '.dynamicActiveSecrets[0].secret.tlsCertificate.certificateChain.inlineBytes' | base64 --decode | openssl x509 -noout -text -in /dev/stdin
+./istio/bin/istioctl pc secret <ztunnel_id> -n istio-system -o json | jq -r '.dynamicActiveSecrets[0].secret.tlsCertificate.certificateChain.inlineBytes' | base64 --decode | openssl x509 -noout -text -in /dev/stdin
 ```
 This should give you output along the line of:
 
