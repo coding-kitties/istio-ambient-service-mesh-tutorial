@@ -1,4 +1,4 @@
-# Kubernetes ambient service mesh with Istio tutorial
+# Istio service mesh in ambient mode tutorial
 > Note: This tutorial is based on kind running on an ubuntu 20.04 machine with docker. 
 > It should work on any other linux distribution. We also tried to run it on a 
 > macbook pro with docker desktop, this did not work yet. To see the current status 
@@ -113,8 +113,8 @@ To get started with the tutorial, follow the following steps:
    > You need to wait until all pods are running, otherwise we can't label the 
    > pods in step 2.  
    ```bash
-   kubectl apply -f ./istio/samples/bookinfo/platform/kube/bookinfo.yaml
-   kubectl apply -f ./istio/samples/bookinfo/networking/bookinfo-gateway.yaml
+   kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/bookinfo/platform/kube/bookinfo.yaml
+   kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/bookinfo/networking/bookinfo-gateway.yaml
    kubectl apply -f https://raw.githubusercontent.com/linsun/sample-apps/main/sleep/sleep.yaml
    kubectl apply -f https://raw.githubusercontent.com/linsun/sample-apps/main/sleep/notsleep.yaml
    ```
