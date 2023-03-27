@@ -250,14 +250,21 @@ You can install the gateway with the following commands:
    > waypoint proxy for the productpage.
    ```bash
    kubectl apply -f - <<EOF
-   apiVersion: gateway.networking.k8s.io/v1alpha2
+   apiVersion: gateway.networking.k8s.io/v1beta1
    kind: Gateway
    metadata:
-    name: productpage
-    annotations:
-      istio.io/service-account: bookinfo-productpage
+     name: productpage
+     annotations:
+       istio.io/for-service-account: bookinfo-productpage
    spec:
-    gatewayClassName: istio-mesh
+     gatewayClassName: istio-waypoint
+     listeners:
+     - allowedRoutes:
+         namespaces:
+           from: Same
+       name: mesh
+       port: 15008
+       protocol: ALL
    EOF
    ```
 2. You can check if the deployment of the productpage waypoint was successfull 
