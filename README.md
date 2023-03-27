@@ -131,7 +131,7 @@ When enabling ambient mode you’ll immediately gain mTLS communication
 among the applications in the Ambient mesh.
 
 To verify this you could load one of the X.509 certificates for by using one 
-of your ztunnels and retrieving the certificate from it.
+of your ztunnels and retrieving the certificate from it (note, you'll need a recent build, preferebly from master, since this issue fixed the `proxyconfig` option: https://github.com/istio/istio/pull/43981).
 
 ```bash
 ./istio/bin/istioctl pc secret <ztunnel_id> -n istio-system -o json | jq -r '.dynamicActiveSecrets[0].secret.tlsCertificate.certificateChain.inlineBytes' | base64 --decode | openssl x509 -noout -text -in /dev/stdin
