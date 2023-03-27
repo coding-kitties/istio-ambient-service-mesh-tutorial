@@ -31,23 +31,13 @@ To get started with the tutorial, follow the following steps:
 
 ### Installation
 
-1. Download the experimental version of istioctl 
+1. Install the alpha version of istioctl that contains the `ambient` profile: 
     ```bash
-    curl https://storage.googleapis.com/istio-build/dev/0.0.0-ambient.191fe680b52c1754ee72a06b3e0d3f9d116f2e82/istio-0.0.0-ambient.191fe680b52c1754ee72a06b3e0d3f9d116f2e82-linux-amd64.tar.gz --output istio.tar.gz
+    curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.18.0-alpha.0 sh -
     ```
-2. untar the file
+2. Install instio in ambient mode on your local cluster
     ```bash
-    tar -xvf istio.tar.gz
-    rm istio.tar.gz
-    ```
-3. Move the istioctl binary to the istio folder
-    ```bash
-    mkdir istio
-    mv istio*/*  istio
-    ```
-4. Install instio in ambient mode on your local cluster
-    ```bash
-    ./istio/bin/istioctl install --set profile=ambient -y
+    ./istio-1.18.0-alpha.0/bin/istioctl install --set profile=ambient -y
     ```
     You should see the following output:
     ```bash
@@ -57,7 +47,7 @@ To get started with the tutorial, follow the following steps:
     ✔ CNI installed
     ✔ Installation complete
     ```
-5. You can also see all the istio resources with the following command:
+3. You can also see all the istio resources with the following command:
     ```bash
     kubectl -n istio-system get all
     ```
