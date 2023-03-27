@@ -37,7 +37,7 @@ To get started with the tutorial, follow the following steps:
     ```
 2. Install instio in ambient mode on your local cluster
     ```bash
-    ./istio-1.18.0-alpha.0/bin/istioctl install --set profile=ambient -y
+    ./istio-1.18.0-alpha.0/bin/istioctl install --set profile=ambient -y --set meshConfig.accessLogFile=/dev/stdout
     ```
     You should see the following output:
     ```bash
